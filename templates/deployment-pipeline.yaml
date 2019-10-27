@@ -142,7 +142,7 @@ Resources:
       Name: !Ref AWS::StackName
       ServiceRole: !Ref CodeBuildServiceRole
 
-  CodeBuildDocker:
+  CodeBuild:
     Type: AWS::CodeBuild::Project
     Properties:
       Artifacts:
@@ -202,21 +202,6 @@ Resources:
               OutputArtifacts:
                 - Name: App
               RunOrder: 1
-        - Name: UnitTest
-          Actions:
-            - Name: UnitTest
-              ActionTypeId:
-                Category: Build
-                Owner: AWS
-                Version: 1
-                Provider: CodeBuild
-              Configuration:
-                ProjectName: !Ref CodeBuildUnitTest
-              InputArtifacts:
-                - Name: App
-              OutputArtifacts:
-                - Name: BuildOutput
-              RunOrder: 1
         - Name: BuildDocker
           Actions:
             - Name: BuildDocker
@@ -226,7 +211,7 @@ Resources:
                 Version: 1
                 Provider: CodeBuild
               Configuration:
-                ProjectName: !Ref CodeBuildDocker
+                ProjectName: !Ref CodeBuild
               InputArtifacts:
                 - Name: App
               OutputArtifacts:
